@@ -1,0 +1,2 @@
+### Update the Migrations
+PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet ef migrations add CategoryAdded -p .\Persistance\ -s .\API\
