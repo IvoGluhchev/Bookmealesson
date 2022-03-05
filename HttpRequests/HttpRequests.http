@@ -4,7 +4,7 @@
 GET {{local-url}}/WeatherForecast
 
 ###
-GET {{local-url}}/api/Activities
+GET {{local-url}}/api/activities
 
 ###
 GET {{local-url}}/api/Activities/7461C9DC-1594-4206-87B5-9DFBF7D9A644
