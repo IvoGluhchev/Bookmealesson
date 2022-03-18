@@ -1,0 +1,10 @@
+*** Debugging in VS Code ****
+1. .vscode folder needed to exist
+2. In the folder there is launch.json contining the different profiles for Debugging
+    a) ".NET Core Launch (web)" - starts the debugger when launching
+    b) ".NET Core Attach" - allows you to attach to the process
+    NB!!! In my case because I'm starting the application with the command dotnet watch run I need to use the ".NET Core Attach" profile.
+3. Click on the debug button on the left
+4. From the dropdown select the profile to attach to a process
+5. In the search bar I should look for something like API.exe and select it, because the windows processes run in executables.
+
