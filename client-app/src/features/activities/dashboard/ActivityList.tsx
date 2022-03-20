@@ -33,10 +33,6 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                     </Item>
                 ))}
             </Item.Group>
-            <List>
-
-            </List>
         </Segment>
-
     )
 }

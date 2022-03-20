@@ -18,7 +18,7 @@ interface Props {
     deleteActivity: (id: string) => void;
 }
 
-{/*export default function ActivityDashboard(props: Props) - saying props is of type Props */ }
+{/*export default function ActivityDashboard(props: Props) - saying props is of type Props */}
 export default function ActivityDashboard({ activities, selectedActivity, editMode,
     selectActivity, cancelSelectActivity, openForm, closeForm, createOrEdit, deleteActivity }: Props) {
     return (
