@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "semantic-ui-react";
+import LoadingComponents from "../../../app/layout/LoadingComponenets";
 import { Activity } from "../../../app/models/activity";
 import ActivityDetails from "../details/ActivityDetails";
 import ActivityForm from "../form/ActivityForm";
@@ -16,11 +17,13 @@ interface Props {
     closeForm: () => void;
     createOrEdit: (activity: Activity) => void;
     deleteActivity: (id: string) => void;
+    submitting: boolean;
 }
 
-{/*export default function ActivityDashboard(props: Props) - saying props is of type Props */}
-export default function ActivityDashboard({ activities, selectedActivity, editMode,
+{/*export default function ActivityDashboard(props: Props) - saying props is of type Props */ }
+export default function ActivityDashboard({ activities, selectedActivity, editMode, submitting,
     selectActivity, cancelSelectActivity, openForm, closeForm, createOrEdit, deleteActivity }: Props) {
+
     return (
         <Grid>
             <Grid.Column width={10}> {/*16 column grid system*/}
@@ -39,7 +42,11 @@ export default function ActivityDashboard({ activities, selectedActivity, editMo
                         cancelSelectActivity={cancelSelectActivity}
                         openForm={openForm}
                     />}
-                {editMode && <ActivityForm closeForm={closeForm} activity={selectedActivity} createOrEdit={createOrEdit} />}
+                {editMode && <ActivityForm
+                    closeForm={closeForm}
+                    activity={selectedActivity}
+                    createOrEdit={createOrEdit}
+                    submitting={submitting} />}
             </Grid.Column>
         </Grid>
     )

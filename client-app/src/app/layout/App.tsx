@@ -1,28 +1,36 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import axios from 'axios'
 import { Container } from 'semantic-ui-react';
 import { Activity } from '../models/activity';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
+import agent from '../api/agent';
+import LoadingComponents from './LoadingComponenets';
 
 function App() {
-  {/* setActivities sets activities [varToBeSet, funcToSetTheVariable] useState to keep it in the state*/ }
+  // setActivities sets activities [varToBeSet, funcToSetTheVariable] useState to keep it in the state
   const [activities, setActivities] = useState<Activity[]>([]);
 
-  {/* useState<Activity | undefined>(undefined) means that the setSelected can accept Activity or undefined */ }
+  // useState<Activity | undefined>(undefined) means that the setSelected can accept Activity or undefined
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    axios.get<Activity[]>('http://localhost:5000/api/activities')
-      .then(response => {
-        setActivities(response.data);
-      })
+    agent.Activities.list().then(response => {
+      let activities: Activity[] = []; // decalre a local array of type activity
+      response.forEach(activity => {
+        activity.date = activity.date.split('T')[0]; // takes the first part of the split array
+        activities.push(activity);
+      });
+      setActivities(activities);
+      setLoading(false);
+    })
   }, [])
 
   function handleSelectActivity(id: string) {
-    /*this sets the found activite to selectedActivity */
+    // this sets the found activite to selectedActivity
     setSelectedActivity(activities.find(a => a.id === id))
   }
 
@@ -40,16 +48,33 @@ function App() {
   }
 
   function handleCreateOrEditActivity(activity: Activity) {
-    activity.id
-      ? setActivities([...activities.filter(a => a.id !== activity.id), activity])
-      : setActivities([...activities, {...activity, id: uuid()}]);
-      setEditMode(false);
-      setSelectedActivity(activity);
+    setSubmitting(true);
+    if (activity.id) {
+      agent.Activities.update(activity).then(() => {
+        setActivities([...activities.filter(a => a.id !== activity.id), activity]);
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false)
+      })
+    } else {
+      activity.id = uuid();
+      agent.Activities.create(activity).then(() => {
+        setActivities([...activities, activity]); // ads the new activity to the array
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false)
+      })
+    }
   }
 
-  function handleDeleteActivity(id: string){
+  function handleDeleteActivity(id: string) {
     setActivities([...activities.filter(a => a.id !== id)]);
   }
+
+  if (loading)
+    return (
+      <LoadingComponents content='Loading app...' />
+    )
 
   return (
     <Fragment>
@@ -65,6 +90,7 @@ function App() {
           closeForm={handleFormClose}
           createOrEdit={handleCreateOrEditActivity}
           deleteActivity={handleDeleteActivity}
+          submitting={submitting}
         />
       </Container>
     </Fragment>

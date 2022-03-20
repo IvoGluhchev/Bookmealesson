@@ -47,11 +47,11 @@ namespace API.Controllers
 
             activity.Id = id;
 
-            return Ok(Mediator.Send(new Edit.Command { Activity = activity }, cancellationToken));
+            return Ok(await Mediator.Send(new Edit.Command { Activity = activity }, cancellationToken));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> EditActivity(Guid id)
+        public async Task<IActionResult> DeleteActivity(Guid id)
         {
             if (!ModelState.IsValid) return BadRequest();
             if (id == Guid.Empty) return BadRequest();
