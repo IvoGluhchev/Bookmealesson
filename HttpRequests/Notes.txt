@@ -1,0 +1,7 @@
+START THE API
+PS C:\Users\user\Desktop\Vibe\Reactivities> cd api
+PS C:\Users\user\Desktop\Vibe\Reactivities\api> dotnet watch run
+
+START THE FRONTEND
+PS C:\Users\user\Desktop\Vibe\Reactivities> cd client-app
+PS C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm start 
