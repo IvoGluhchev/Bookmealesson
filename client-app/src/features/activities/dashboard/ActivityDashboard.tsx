@@ -6,7 +6,7 @@ import ActivityDetails from "../details/ActivityDetails";
 import ActivityForm from "../form/ActivityForm";
 import ActivityList from "./ActivityList";
 
-{/**because it is a func we have to specify the return type */ }
+//because it is a func we have to specify the return type
 interface Props {
     activities: Activity[];
     selectedActivity: Activity | undefined;
@@ -20,7 +20,7 @@ interface Props {
     submitting: boolean;
 }
 
-{/*export default function ActivityDashboard(props: Props) - saying props is of type Props */ }
+//export default function ActivityDashboard(props: Props) - saying props is of type Props
 export default function ActivityDashboard({ activities, selectedActivity, editMode, submitting,
     selectActivity, cancelSelectActivity, openForm, closeForm, createOrEdit, deleteActivity }: Props) {
 
@@ -31,6 +31,7 @@ export default function ActivityDashboard({ activities, selectedActivity, editMo
                     activities={activities}
                     selectActivity={selectActivity}
                     deleteActivity={deleteActivity}
+                    submitting={submitting}
                 />
             </Grid.Column>
             <Grid.Column width={6}>

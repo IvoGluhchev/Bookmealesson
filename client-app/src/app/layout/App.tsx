@@ -10,11 +10,11 @@ import LoadingComponents from './LoadingComponenets';
 function App() {
   // setActivities sets activities [varToBeSet, funcToSetTheVariable] useState to keep it in the state
   const [activities, setActivities] = useState<Activity[]>([]);
-
   // useState<Activity | undefined>(undefined) means that the setSelected can accept Activity or undefined
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  // we are setting the submitting and sending it down the line to display the loading button
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -68,7 +68,12 @@ function App() {
   }
 
   function handleDeleteActivity(id: string) {
-    setActivities([...activities.filter(a => a.id !== id)]);
+    setSubmitting(true);
+    agent.Activities.delete(id).then(() => {
+      setActivities([...activities.filter(a => a.id !== id)]);
+      setSubmitting(false);
+    });
+
   }
 
   if (loading)
