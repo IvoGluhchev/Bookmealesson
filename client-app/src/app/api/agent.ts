@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { Activity } from "../models/activity";
 
+// AXIOS
+//
+// TODO: Remove this sleep cons
 // setting a delay
 const sleep = (delay: number) => {
     return new Promise((resolve) => {

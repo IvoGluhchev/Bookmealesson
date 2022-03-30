@@ -4,4 +4,44 @@ PS C:\Users\user\Desktop\Vibe\Reactivities\api> dotnet watch run
 
 START THE FRONTEND
 PS C:\Users\user\Desktop\Vibe\Reactivities> cd client-app
-PS C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm start 
+PS C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm start
+
+MOBX - same function as Redux
+// we install mobex and at the same time mobx mobx-react-lite
+user@DESKTOP-4QFH7NM MINGW64 ~/Desktop/Vibe/Reactivities/client-app (main)
+$ npm install mobx mobx-react-lite
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+#### CODE NOTES ####
+------------------------------------------------------------------------------------------------------------------------------------
+{/**We wrap onClick in arrow func to not get executed imidiately waits until we click the button before doing anything*/}
+<Button onClick={() => selectActivity(activity.id)} floated="right"
+
+ {/** anything to the right of && can execute as long as the left part is not null or undefined and they have to be wrapped in {} */}
+{selectedActivity && !editMode &&
+    <ActivityDetails
+        activity={selectedActivity}
+        cancelSelectActivity={cancelSelectActivity}
+        openForm={openForm}
+    />}
+
+-----------
+#### Passing Props to component ####
+-----------
+interface Props {
+    activities: Activity[];
+    deleteActivity: (id: string) => void;
+    submitting: boolean;
+}
+//export default function ActivityDashboard(props: Props) - saying props is of type Props
+export default function ActivityDashboard({ activities, submitting, deleteActivity }: Props){....}
+-----------
+#### Setting and declaring constants to use in a component ####
+-----------
+// setActivities sets activities [varToBeSet, funcToSetTheVariable] useState to keep it in the state
+const [activities, setActivities] = useState<Activity[]>([]);
+//useState<Activity | undefined>(undefined) means that the setSelected can accept Activity or undefined
+const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
+// we are setting the submitting and sending it down the line to display the loading button
+const [submitting, setSubmitting] = useState(false);
