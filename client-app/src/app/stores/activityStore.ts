@@ -1,65 +1,74 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Activity } from "../models/activity";
-import { v4 as uuid } from "uuid";
 
 export default class ActivityStore {
+    activityRegistry = new Map<string, Activity>();
     selectedActivity: Activity | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingIntial = true;
-    activityRegistry = new Map<string, Activity>();
+    loadingInitial = true;
 
     constructor() {
         makeAutoObservable(this)
     }
 
-    // computed property
     get activitiesByDate() {
-        return Array.from(this.activityRegistry.values())
-            .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+        return Array.from(this.activityRegistry.values()).sort((a, b) =>
+            Date.parse(a.date) - Date.parse(b.date));
     }
 
-    // async is syntactic sugar over promisses
     loadActivities = async () => {
+        this.loadingInitial = true;
         try {
-            const activitiesApi = await agent.Activities.list(); // this is coming from our API the list is agent that actually is a client
-            activitiesApi.forEach(activity => {
-                activity.date = activity.date.split('T')[0]; // takes the first part of the split array
-                this.activityRegistry.set(activity.id, activity); // this is our local dic of activities -> we are mutating state
-            });
-            this.setLoadingInital(false);
+            const activities = await agent.Activities.list();
+            activities.forEach(activity => {
+                this.setActivity(activity);
+            })
+            this.setLoadingInitial(false);
         } catch (error) {
             console.log(error);
-            this.setLoadingInital(false);
+            this.setLoadingInitial(false);
         }
     }
 
-    // this is an action
-    setLoadingInital = (state: boolean) => {
-        this.loadingIntial = state;
+    loadActivity = async (id: string) => {
+        let activity = this.getActivity(id);
+        if (activity) {
+            this.selectedActivity = activity;
+            return activity;
+        } else {
+            this.loadingInitial = true;
+            try {
+                activity = await agent.Activities.details(id);
+                this.setActivity(activity);
+                runInAction(() => {
+                    this.selectedActivity = activity;
+                })
+                this.setLoadingInitial(false);
+                return activity;
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
+            }
+        }
     }
 
-    selectActivity = (id: string) => {
-        this.selectedActivity = this.activityRegistry.get(id);
+    private setActivity = (activity: Activity) => {
+        activity.date = activity.date.split('T')[0];
+        this.activityRegistry.set(activity.id, activity);
     }
 
-    cancelSelectedActivity = () => {
-        this.selectedActivity = undefined;
+    private getActivity = (id: string) => {
+        return this.activityRegistry.get(id);
     }
 
-    openForm = (id?: string) => {
-        id ? this.selectActivity(id) : this.cancelSelectedActivity();
-        this.editMode = true;
-    }
-
-    closeForm = () => {
-        this.editMode = false;
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
     }
 
     createActivity = async (activity: Activity) => {
         this.loading = true;
-        activity.id = uuid();
         try {
             await agent.Activities.create(activity);
             runInAction(() => {
@@ -81,7 +90,6 @@ export default class ActivityStore {
         try {
             await agent.Activities.update(activity);
             runInAction(() => {
-                // create new array from activity and push the edited into the array
                 this.activityRegistry.set(activity.id, activity);
                 this.selectedActivity = activity;
                 this.editMode = false;
@@ -101,7 +109,6 @@ export default class ActivityStore {
             await agent.Activities.delete(id);
             runInAction(() => {
                 this.activityRegistry.delete(id);
-                if (this.selectedActivity?.id === id) this.cancelSelectedActivity();
                 this.loading = false;
             })
         } catch (error) {
@@ -112,6 +119,138 @@ export default class ActivityStore {
         }
     }
 }
+
+// import { makeAutoObservable, runInAction } from "mobx";
+// import agent from "../api/agent";
+// import { Activity } from "../models/activity";
+// import { v4 as uuid } from "uuid";
+
+// export default class ActivityStore {
+//     selectedActivity: Activity | undefined = undefined;
+//     editMode = false;
+//     loading = false;
+//     loadingInitial = true;
+//     activityRegistry = new Map<string, Activity>();
+
+//     constructor() {
+//         makeAutoObservable(this)
+//     }
+
+//     // computed property
+//     get activitiesByDate() {
+//         return Array.from(this.activityRegistry.values())
+//             .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+//     }
+
+//     // async is syntactic sugar over promisses
+//     loadActivities = async () => {
+//         try {
+//             this.loadingInitial = true;
+//             // this is coming from our API the list is agent that actually is a client
+//             const activitiesApi = await agent.Activities.list();
+//             activitiesApi.forEach(activity => {
+//                 this.setActivity(activity);
+//             });
+//             this.setLoadingInital(false);
+//         } catch (error) {
+//             console.log(error);
+//             this.setLoadingInital(false);
+//         }
+//     }
+
+//     loadActivity = async (id: string) => {
+//         let activity = this.getActivity(id);
+//         if (activity) {
+//             this.selectedActivity = activity;
+//             return activity;
+//         } else {
+//             this.loadingInitial = true;
+//             try {
+//                 activity = await agent.Activities.details(id);
+//                 this.setActivity(activity);
+//                 // We runInAction this code because mobx is in strict mode
+//                 runInAction(() => {
+//                     this.selectedActivity = activity;
+//                 });
+//                 this.setLoadingInital(false);
+//                 return activity;
+//             } catch (error) {
+//                 console.log(error);
+//                 this.setLoadingInital(false);
+//             }
+//         }
+//     }
+
+//     private getActivity = (id: string) => {
+//         return this.activityRegistry.get(id);
+//     }
+
+//     private setActivity = (activity: Activity): void => {
+//         // takes the first part of the split array
+//         activity.date = activity.date.split('T')[0];
+//         // this is our local dic of activities -> we are mutating state
+//         this.activityRegistry.set(activity.id, activity);
+//     }
+
+//     // this is an action
+//     setLoadingInital = (state: boolean) => {
+//         this.loadingInitial = state;
+//     }
+
+//     createActivity = async (activity: Activity) => {
+//         this.loading = true;
+//         activity.id = uuid();
+//         try {
+//             await agent.Activities.create(activity);
+//             runInAction(() => {
+//                 this.activityRegistry.set(activity.id, activity);
+//                 this.selectedActivity = activity;
+//                 this.editMode = false;
+//                 this.loading = false;
+//             })
+//         } catch (error) {
+//             console.log(error);
+//             runInAction(() => {
+//                 this.loading = false;
+//             })
+//         }
+//     }
+
+//     updateActivity = async (activity: Activity) => {
+//         this.loading = true;
+//         try {
+//             await agent.Activities.update(activity);
+//             runInAction(() => {
+//                 // create new array from activity and push the edited into the array
+//                 this.activityRegistry.set(activity.id, activity);
+//                 this.selectedActivity = activity;
+//                 this.editMode = false;
+//                 this.loading = false;
+//             })
+//         } catch (error) {
+//             console.log(error);
+//             runInAction(() => {
+//                 this.loading = false;
+//             })
+//         }
+//     }
+
+//     deleteActivity = async (id: string) => {
+//         this.loading = true;
+//         try {
+//             await agent.Activities.delete(id);
+//             runInAction(() => {
+//                 this.activityRegistry.delete(id);
+//                 this.loading = false;
+//             })
+//         } catch (error) {
+//             console.log(error);
+//             runInAction(() => {
+//                 this.loading = false;
+//             })
+//         }
+//     }
+// }
 
 // Above is the simpler way to create a store and bind the observable (title) and action (setTitle) to it
 //

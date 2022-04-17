@@ -4,12 +4,15 @@ import './app/layout/styles.css';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './app/stores/store';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   // We want to make our context available in our app and we can either
   // consume the context or provide our context to our application
   <StoreContext.Provider value={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StoreContext.Provider>,
   document.getElementById('root')
 );

@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import ActivityStore from "./activityStore";
 
-interface Store{
+interface Store {
     activityStore: ActivityStore
 }
 
@@ -13,6 +13,6 @@ export const store: Store = {
 export const StoreContext = createContext(store);
 
 // react hook to allow us use our stores in our componenets
-export function useStore(){
+export function useStore() {
     return useContext(StoreContext);
 }

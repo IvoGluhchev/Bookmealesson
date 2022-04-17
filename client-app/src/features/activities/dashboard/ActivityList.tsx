@@ -1,12 +1,13 @@
 import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
 // That is destructured props -> { activities, selectActivity, deleteActivity, submitting }: Props
 export default observer (function ActivityList() {
     const {activityStore} = useStore();
-    const {deleteActivity, selectActivity, activitiesByDate, loading } = activityStore;
+    const {deleteActivity, activitiesByDate, loading } = activityStore;
     const [target, setTarget] = useState('');
 
     // 'e' is the click event which derives from SyntheticEvent and is of type HTMLButtonElement
@@ -30,10 +31,8 @@ export default observer (function ActivityList() {
                                 <div>{activity.city}, {activity.venue}</div>
                             </Item.Description>
                             <Item.Extra>
-                                {/**We wrap onClick in arrow func to not get executed imidiately
-                                 * waits until we click the button before doing anything
-                                */}
-                                <Button onClick={() => selectActivity(activity.id)} floated="right" content="View" color="blue" />
+                                {/**We wrap onClick in arrow func to not get executed imidiately waits until we click the button before doing anything */}
+                                <Button as={Link} to={`/activities/${activity.id}`} floated="right" content="View" color="blue" />
                                 <Button
                                     name={activity.id}
                                     onClick={(e) => handleActivityDelete(e, activity.id)}
