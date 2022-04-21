@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
-import { idText } from "typescript";
 import LoadingComponent from "../../../app/layout/LoadingComponenet";
 import { useStore } from "../../../app/stores/store";
+import ActivityFilters from "./ActivityFilters";
 import ActivityList from "./ActivityList";
 
 // we need the observer in order to display (observe) the changes from edit and view
@@ -25,7 +25,7 @@ export default observer(function ActivityDashboard() {
                 <ActivityList />
             </Grid.Column>
             <Grid.Column width={6}>
-                <h2>Activity filters</h2>
+                <ActivityFilters />
             </Grid.Column>
         </Grid>
     )
