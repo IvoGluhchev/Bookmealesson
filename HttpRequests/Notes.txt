@@ -59,11 +59,12 @@ const [submitting, setSubmitting] = useState(false);
 ------------------------------------------------------------------------------------------------------------------------------------
 #### LIBS NOTES ####
 ------------------------------------------------------------------------------------------------------------------------------------
-axios        - for http requests
-UUID         - for genrating guids = import { v4 as uuid } from "uuid";
-MobX         - for storing state   = import { makeAutoObservable, runInAction } from "mobx";
-React-Router - for routing https://reactrouter.com/
-             - install command (v6 contains breaking changes) - npm install react-router-dom@5.3.0 @types/react-router-dom@5.3.2
+axios           - for http requests
+UUID            - for genrating guids = import { v4 as uuid } from "uuid";
+MobX            - for storing state   = import { makeAutoObservable, runInAction } from "mobx";
+React-Router    - for routing https://reactrouter.com/
+                - install command (v6 contains breaking changes) - npm install react-router-dom@5.3.0      @types/react-router-dom@5.3.2
+react-toastify  - toast linrary comes with typescript definition file: npm install react-toastify
 
 
 

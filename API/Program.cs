@@ -18,14 +18,17 @@ namespace API
         {
             var host = CreateHostBuilder(args).Build();
 
+            // This is going to be disposed once the Main method finishes because of using keyword
+            // we are going to save all our servicese here
             using var scope = host.Services.CreateScope();
 
             var services = scope.ServiceProvider;
 
             try
             {
-                var context = services.GetRequiredService<DataContext>();
-                await context.Database.MigrateAsync();
+                // We have added this context as a service in the Startup and we are getting it here
+                var context = services.GetRequiredService<DataContext>(); // Thi is service locator pattern
+                await context.Database.MigrateAsync(); // Comming from EFCore
 
                 await Seed.SeedData(context);
             }
@@ -35,6 +38,7 @@ namespace API
                 logger.LogError(ex, "Error during Migration.");
             }
 
+            // We need to start our application
             await host.RunAsync();
         }
 

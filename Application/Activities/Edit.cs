@@ -1,4 +1,6 @@
+using Application.Core;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistance;
 
@@ -6,12 +8,20 @@ namespace Application.Activities
 {
     public class Edit
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public Activity Activity { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(a => a.Activity).SetValidator(new ActivityValidator());
+            }
+        }
+
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
 
@@ -20,13 +30,18 @@ namespace Application.Activities
                 _context = context ?? throw new ArgumentNullException(nameof(context));
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var activity = await _context.FindAsync<Activity>(request.Activity.Id);
-                activity.UpdateFrom(request.Activity);
-                await _context.SaveChangesAsync();
+                if (activity == null)
+                    return null;
 
-                return Unit.Value;
+                activity.UpdateFrom(request.Activity);
+                var result = await _context.SaveChangesAsync() > 0;
+                if (!result)
+                    return Result<Unit>.Failure("Failed to update activity.");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

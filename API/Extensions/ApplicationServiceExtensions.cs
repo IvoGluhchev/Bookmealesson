@@ -11,13 +11,12 @@ namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services,
-        IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
-            });
+            services.AddSwaggerGen(c =>
+                        {
+                            c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+                        });
 
             services.AddDbContext<DataContext>(options =>
             {
@@ -25,8 +24,7 @@ services.AddSwaggerGen(c =>
             });
 
             // Cross Origin Policy for allowing
-            // Every method and any Header comming from
-            // a certain origin (localhost...)
+            // Every method and any Header comming from  a certain origin (localhost...)
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", policy =>
@@ -34,7 +32,10 @@ services.AddSwaggerGen(c =>
                     policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
                 });
             });
+
+            // Add Mediator service library
             services.AddMediatR(typeof(List.Handler).Assembly);
+
             // AutoMapper - I'm not using
 
             return services;

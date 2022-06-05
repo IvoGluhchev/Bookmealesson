@@ -1,6 +1,12 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+// import { toNamespacedPath } from "path";
 import { Activity } from "../models/activity";
+import { toast } from "react-toastify"
+import { store } from "../stores/store";
+import { history } from "../..";
 
+//Actually this is a CLIENT (here called agent)
+//
 // AXIOS
 //
 // TODO: Remove this sleep cons
@@ -15,13 +21,43 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 // axios interceptors is used to intercept the response and request and do something with them
 axios.interceptors.response.use(async response => {
-    try {
-        await sleep(1000);
-        return response;
-    } catch (error) {
-        console.log(error);
-        return await Promise.reject(error);
+    await sleep(1000);
+    return response;
+}, (error: AxiosError) => {
+    const { data, status, config } = error.response!;
+    // console.log(error.response);
+    switch (status) {
+        case 400:
+            if(typeof data === 'string'){
+                toast.error(data);
+            }
+            if(config.method === 'get' && data.errors.hasOwnProperty('id')){
+                history.push('/not-found');
+            }
+            if (data.errors) {
+                const modalStateErrors = [];
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
+                        modalStateErrors.push(data.errors[key])
+                    }
+                }
+                throw modalStateErrors.flat();
+            }
+            break;
+        case 401:
+            toast.error('unauthorized');
+            break;
+        case 404:
+            //toast.error('not found');
+            history.push('/not-found');
+            break;
+        case 500:
+            store.commonStore.setServerError(data);
+            history.push('/server-error');
+            //toast.error('internal server error');
+            break;
     }
+    return Promise.reject(error);
 })
 
 // Making the response body generic so that we can say what type we expect

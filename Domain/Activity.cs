@@ -1,5 +1,7 @@
 namespace Domain
 {
+    // Not going to have validation via attributes here the validation will be
+    // in the Application Layer and not in the domain layer
     public class Activity
     {
         public Guid Id { get; set; }
