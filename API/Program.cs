@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -28,9 +30,10 @@ namespace API
             {
                 // We have added this context as a service in the Startup and we are getting it here
                 var context = services.GetRequiredService<DataContext>(); // Thi is service locator pattern
-                await context.Database.MigrateAsync(); // Comming from EFCore
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
 
-                await Seed.SeedData(context);
+                await context.Database.MigrateAsync(); // Comming from EFCore
+                await Seed.SeedData(context, userManager);
             }
             catch (Exception ex)
             {

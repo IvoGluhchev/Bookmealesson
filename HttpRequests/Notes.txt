@@ -6,6 +6,10 @@ START THE FRONTEND
 PS C:\Users\user\Desktop\Vibe\Reactivities> cd client-app
 PS C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm start
 
+MIGRATIONS
+PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet ef migrations add IdentityAdded -p Persistance/ -s API
+This will create a migration called "IdentityAdded" within (-p) Persistance proj w/ (-s) starter proj API
+
 MOBX - same function as Redux
 // we install mobex and at the same time mobx mobx-react-lite
 user@DESKTOP-4QFH7NM MINGW64 ~/Desktop/Vibe/Reactivities/client-app (main)
