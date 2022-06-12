@@ -5,6 +5,7 @@ import { Button, FormField, Form, Label, Segment } from "semantic-ui-react";
 interface Props {
     placeholder: string;
     name: string;
+    type?: string
     label?: string;
 }
 

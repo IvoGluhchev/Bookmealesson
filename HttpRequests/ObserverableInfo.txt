@@ -1,0 +1,15 @@
+ login = async (creds: UserFormValues) => {
+        try {
+            const user = await agent.Account.login(creds);
+            store.commonStore.setToken(user.token);
+            console.log(user);
+            // updating this.user happens in the next tick after the await
+            // so if we want to modify an observable it has to be inside an action
+            // so we must use runInAction
+            runInAction(() => this.user = user);
+            history.push('/activities');
+
+        } catch (error) {
+            throw error;
+        }
+    }

@@ -16,7 +16,7 @@ export default observer(function ActivityDashboard() {
         // we need to pass activityStore as dependency to the react hook useEffect
     }, [activityRegistry, loadActivities])
 
-    if (activityStore.loadingInitial) return (<LoadingComponent content='Loading app...' />)
+    if (activityStore.loadingInitial) return (<LoadingComponent content='Loading activities...' />)
 
     return (
         <Grid>

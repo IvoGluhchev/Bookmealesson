@@ -4,6 +4,7 @@ import { Activity } from "../models/activity";
 import { toast } from "react-toastify"
 import { store } from "../stores/store";
 import { history } from "../..";
+import { User, UserFormValues } from "../models/user";
 
 //Actually this is a CLIENT (here called agent)
 //
@@ -19,6 +20,12 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
+ axios.interceptors.request.use(config => {
+     const token = store.commonStore.token;
+     if(token) config.headers!.Authorization = `Bearer ${token}`;
+     return config
+ })
+
 // axios interceptors is used to intercept the response and request and do something with them
 axios.interceptors.response.use(async response => {
     await sleep(1000);
@@ -28,9 +35,6 @@ axios.interceptors.response.use(async response => {
     // console.log(error.response);
     switch (status) {
         case 400:
-            if(typeof data === 'string'){
-                toast.error(data);
-            }
             if(config.method === 'get' && data.errors.hasOwnProperty('id')){
                 history.push('/not-found');
             }
@@ -70,6 +74,7 @@ const requests = {
     delete: <T>(url: string) => axios.delete<T>(url).then(responseBody)
 }
 
+// Objects for Activity Requests
 const Activities = {
     // list: () => requests.get('/activities') - without type safety
     list: () => requests.get<Activity[]>('/activities'),
@@ -79,8 +84,17 @@ const Activities = {
     delete: (id: string) => axios.delete<void>(`/activities/${id}`)
 }
 
+// Objects for User/Account Requests
+const Account = {
+    current: () => requests.get<User>('/account'),
+    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+    register: (user: UserFormValues) => requests.post<User>('account/register', user)
+}
+
+// client (this is actually a client not an agent)
 const agent = {
-    Activities
+    Activities,
+    Account
 }
 
 export default agent;
