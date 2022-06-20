@@ -24,6 +24,7 @@ export default class UserStore {
             runInAction(() => this.user = user);
             history.push('/activities');
             store.modalStore.closeModal();
+            window.location.reload(); // workaround
         } catch (error) {
             throw error;
         }
@@ -34,6 +35,7 @@ export default class UserStore {
         window.localStorage.removeItem('jwt');
         this.user = null;
         history.push('/');
+        window.location.reload();  // workaround
     }
 
     // this is a method

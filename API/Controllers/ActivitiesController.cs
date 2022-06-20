@@ -5,13 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
         public async Task<IActionResult> GetActivities(CancellationToken cancellationToken)
         {
-            return HandleResult<List<Activity>>(await Mediator.Send(new List.Query(), cancellationToken));
+            return HandleResult(await Mediator.Send(new List.Query(), cancellationToken));
         }
 
         [HttpGet("{id}")]
@@ -19,7 +18,7 @@ namespace API.Controllers
         {
             var a = Request.Headers.Authorization;
             // We want to keep the controllers thin so the validation and error handling will hapen in the handlers
-            return HandleResult<Activity>(await Mediator.Send(new Details.Query { Id = id }, cancellationToken));
+            return HandleResult<ActivityDto>(await Mediator.Send(new Details.Query { Id = id }, cancellationToken));
         }
 
         /// When returning IActionResult we have access to BadRequest() etc.
@@ -31,6 +30,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Create.Command { Activity = activity }, cancellationToken));
         }
 
+        [Authorize(Policy = "IsActivityHost")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditActivity(Guid id, Activity activity, CancellationToken cancellationToken)
         {
@@ -39,10 +39,17 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command { Activity = activity }, cancellationToken));
         }
 
+        [Authorize(Policy = "IsActivityHost")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        }
+
+        [HttpPost("{id}/attend")]
+        public async Task<IActionResult> Attend(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new UpdateAttendance.Command { Id = id }));
         }
     }
 }

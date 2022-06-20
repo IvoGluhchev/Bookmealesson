@@ -1,4 +1,5 @@
 using Application.Core;
+using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -24,10 +25,12 @@ namespace Application.Activities
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
+            private readonly IMapper _mapper;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, IMapper mapper)
             {
                 _context = context ?? throw new ArgumentNullException(nameof(context));
+                _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
@@ -36,7 +39,9 @@ namespace Application.Activities
                 if (activity == null)
                     return null;
 
-                activity.UpdateFrom(request.Activity);
+                //before: activity.UpdateFrom(request.Activity);
+                _mapper.Map(request.Activity, activity);
+
                 var result = await _context.SaveChangesAsync() > 0;
                 if (!result)
                     return Result<Unit>.Failure("Failed to update activity.");

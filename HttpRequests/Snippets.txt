@@ -5,3 +5,15 @@ PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet ef migrations add CategoryAdd
 ### -s = start up project
 ### -p = for project that contains the data context
 dotnet ef database drop -s API -p Persistance/
+
+### Create a new project
+dotnet new classlib -n Infrastructure
+~Reactivities> dotnet sln add .\Infrastructure\
+Project `Infrastructure\Infrastructure.csproj` added to the solution.
+~Reactivities> cd .\Infrastructure\
+~Reactivities\Infrastructure> dotnet add reference ..\Application\
+Reference `..\Application\Application.csproj` added to the project.
+~Reactivities\Infrastructure> cd..
+~Reactivities> cd api
+~Reactivities\api> dotnet add reference ..\Infrastructure\
+Reference `..\Infrastructure\Infrastructure.csproj` added to the project.

@@ -1,4 +1,7 @@
 using Application.Activities;
+using Application.Core;
+using Application.Interfaces;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -32,8 +35,9 @@ namespace API.Extensions
 
             // Add Mediator service library
             services.AddMediatR(typeof(List.Handler).Assembly);
-
             // AutoMapper - I'm not using
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             return services;
         }
