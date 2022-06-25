@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
 
+// Contains the information about the current user
 export default class UserStore {
     // property
     user: User | null = null;

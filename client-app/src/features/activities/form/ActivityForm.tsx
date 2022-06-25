@@ -12,7 +12,7 @@ import MyTextArea from "../../../app/common/form/MyTextArea";
 import { categoryOptions } from "../../../app/common/options/categoryOptions";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import MyDateInput from "../../../app/common/form/MyDateInput";
-import { Activity } from "../../../app/models/activity";
+import { ActivityFormValues } from "../../../app/models/activity";
 
 
 // CreateActivity
@@ -23,15 +23,7 @@ export default observer(function ActivityForm() {
     const { createActivity, updateActivity, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams<{ id: string }>();
 
-    const [activity, setActivity] = useState<Activity>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: null,
-        city: '',
-        venue: ''
-    });
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
 
     const validationSchema = Yup.object({
@@ -47,10 +39,10 @@ export default observer(function ActivityForm() {
     // By adding dependencies [id, loadActivity] to the useEffect we are saying execute the code insde only if these've changed
     useEffect(() => {
         // setActivity(activity!) with ! we say that we are certain as devs this will not be undefined
-        if (id) loadActivity(id).then(activity => setActivity(activity!))
+        if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)))
     }, [id, loadActivity]);
 
-    function handleFormSubmit(activity: Activity) {
+    function handleFormSubmit(activity: ActivityFormValues) {
         if (!activity.id) {
             let newActivity = {
                 ...activity,

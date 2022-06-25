@@ -27,16 +27,17 @@ export default observer(function ActivityDetails() {
     <Grid>
       <Grid.Column width={10}>
         <ActivityDetailedHeader activity={activity} />
-        <ActivityDetailedInfo activity={activity}/>
+        <ActivityDetailedInfo activity={activity} />
         <ActivityDetailedChat />
       </Grid.Column>
       <Grid.Column width={6}>
-        <ActivityDetailedSidebar />
+        <ActivityDetailedSidebar activity={activity} />
       </Grid.Column>
     </Grid>
   )
 })
 
+/** the bang operator '!' at the end of activity.attendees! tells the compiler 'there is no chance this to be undefined'*/
 
 /**
  * <Button onClick={cancelSelectActivity}... would not be imidiately
