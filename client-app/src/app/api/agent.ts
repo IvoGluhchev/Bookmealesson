@@ -1,10 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 // import { toNamespacedPath } from "path";
-import { Activity, ActivityFormValues } from "../models/activity";
-import { toast } from "react-toastify"
-import { store } from "../stores/store";
-import { history } from "../..";
-import { User, UserFormValues } from "../models/user";
+import { toast } from 'react-toastify';
+import { history } from '../..';
+import { Activity, ActivityFormValues } from '../models/activity';
+//import { PaginatedResult } from '../models/pagination';
+import { Photo, Profile, UserActivity } from '../models/profile';
+import { User, UserFormValues } from '../models/user';
+import { store } from '../stores/store';
 
 //Actually this is a CLIENT (here called agent)
 //
@@ -20,11 +22,11 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
- axios.interceptors.request.use(config => {
-     const token = store.commonStore.token;
-     if(token) config.headers!.Authorization = `Bearer ${token}`;
-     return config
- })
+axios.interceptors.request.use(config => {
+    const token = store.commonStore.token;
+    if (token) config.headers!.Authorization = `Bearer ${token}`;
+    return config
+})
 
 // axios interceptors is used to intercept the response and request and do something with them
 axios.interceptors.response.use(async response => {
@@ -35,7 +37,7 @@ axios.interceptors.response.use(async response => {
     // console.log(error.response);
     switch (status) {
         case 400:
-            if(config.method === 'get' && data.errors.hasOwnProperty('id')){
+            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
                 history.push('/not-found');
             }
             if (data.errors) {
@@ -92,10 +94,24 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>('account/register', user)
 }
 
+const Profiles = {
+    get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<Photo>('photos', formData, {
+            headers: { 'Content-type': 'multipart/form-data' }
+        })
+    },
+    setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
+    deletePhoto: (id: string) => requests.delete(`/photos/${id}`),
+}
+
 // client (this is actually a client not an agent)
 const agent = {
     Activities,
-    Account
+    Account,
+    Profiles
 }
 
 export default agent;

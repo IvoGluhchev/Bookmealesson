@@ -69,17 +69,22 @@ axios           - for http requests
 UUID            - for genrating guids = import { v4 as uuid } from "uuid";
 MobX            - for storing state   = import { makeAutoObservable, runInAction } from "mobx";
 React-Router    - for routing https://reactrouter.com/
-                - install cmd (v6 contains breaking changes) - npm install react-router-dom@5.3.0      @types/react-router-dom@5.3.2
+                - install in client-app cmd (v6 contains breaking changes) - npm install react-router-dom@5.3.0      @types/react-router-dom@5.3.2
 react-toastify  - toast linrary comes with typescript definition file: npm install react-toastify
 formik          - for forms (written in ts)
 yup             - used for validation schemas for Formik =
-                - install cmd - npm instll yup
+                - install in client-app cmd - npm instll yup
                 - add typeScript after that - npm install @types/yup --save-dev
-reactdatepicker - install cmd - npm install react-datepicker
+reactdatepicker - install in client-app cmd - npm install react-datepicker
                 - ts types - npm install @types/react-datepicker --save-dev
                 - we need date fns so to install it we first check what is the version used by datepicker
                 - npm ls date-fns then we npm install date-fns@2.28.0 where date-fns... is the version
                 - date-fns is for formating dates
+react-dropzone  - install in clinet-app cmd = npm install --save react-dropzone
+                - used for drag and drop of files to be uploaded
+                - has a typescript definition file no need to install open
+react-cropper   - install in client-app - cmd npm install --save react-cropper
+                - has a typescript definition file no need to install open
 
 
 

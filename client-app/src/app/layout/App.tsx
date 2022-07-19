@@ -15,6 +15,7 @@ import LoginForm from '../../features/users/LoginForm';
 import { useStore } from '../stores/store';
 import LoadingComponent from './LoadingComponenet';
 import ModalContainer from '../common/modals/ModalContainer';
+import ProfilePage from '../../features/profiles/ProfilePage';
 
 function App() {
   const location = useLocation(); // useLocation is a hook from react-router-dom
@@ -46,6 +47,7 @@ function App() {
                 <Route exact path='/activities' component={ActivityDashboard} />{/*blue we have the observer - jsx component able to observe */}
                 <Route path='/activities/:id' component={ActivityDetails} /> {/*the yellow are react components and return jsx component*/}
                 <Route key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
+                <Route path='/profiles/:username' component={ProfilePage} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} /> {/*history is not enabled*/}
                 <Route path='/login' component={LoginForm} />

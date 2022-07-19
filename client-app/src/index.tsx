@@ -8,10 +8,10 @@ import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './app/stores/store';
 import { BrowserRouter } from 'react-router-dom';
-import {createBrowserHistory} from 'history'
+import { createBrowserHistory, createMemoryHistory } from 'history'
 
-export const history = createBrowserHistory();
-
+// export const history = createBrowserHistory();
+export const history = createMemoryHistory();
 ReactDOM.render(
   <StoreContext.Provider value={store}>
     <BrowserRouter>
