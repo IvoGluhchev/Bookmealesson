@@ -210,6 +210,10 @@ export default class ActivityStore {
             })
         }
     }
+
+    clearSelectedActivity = () => {
+        this.selectedActivity = undefined;
+    }
 }
 
 // import { makeAutoObservable, runInAction } from "mobx";

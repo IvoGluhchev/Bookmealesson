@@ -85,7 +85,7 @@ react-dropzone  - install in clinet-app cmd = npm install --save react-dropzone
                 - has a typescript definition file no need to install open
 react-cropper   - install in client-app - cmd npm install --save react-cropper
                 - has a typescript definition file no need to install open
-
+SignalR         - cd to C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm install @microsoft/signalr
 
 
 ------------------------------------------------------------------------------------------------------------------------------------
