@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
 {
+    // I can use SignalR for push notifications like to inform users about new activities
+    // But have to create a new hub
+    // How many connections can be maintained on a single server with SignalR (20 000)
     public class ChatHub : Hub
     {
         private readonly IMediator _mediator;

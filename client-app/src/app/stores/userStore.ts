@@ -36,7 +36,9 @@ export default class UserStore {
         window.localStorage.removeItem('jwt');
         this.user = null;
         history.push('/');
-        window.location.reload();  // workaround
+        //window.location.reload();
+        // window.location.assign("/");// workaround
+        window.location.replace("/");// workaround
     }
 
     // this is a method
