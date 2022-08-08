@@ -9,12 +9,29 @@ PS C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm start
 MIGRATIONS
 PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet ef migrations add IdentityAdded -p Persistance/ -s API
 This will create a migration called "IdentityAdded" within (-p) Persistance proj w/ (-s) starter proj API
+----------------------------------------------------
+When moving to Postgres migration a warnign came up
+loadedThe Entity Framework tools version '6.0.2' is older than that of the runtime '6.0.7'. Update the tools for the latest features and bug fixes. See https://aka.ms/AAc1fbw for more information.
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 6.0.7 initialized 'DataContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.6+6fa8f3c27a7c241a66e72a6c09e0b252509215d0' with options: None
+Done. To undo this action, use 'ef migrations remove'
+PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet tool update -g dotnet-ef
+Tool 'dotnet-ef' was successfully updated from version '6.0.2' to version '6.0.7'.
+PS C:\Users\user\Desktop\Vibe\Reactivities>
+----------------------------------------------------
 
 MOBX - same function as Redux
 // we install mobex and at the same time mobx mobx-react-lite
 user@DESKTOP-4QFH7NM MINGW64 ~/Desktop/Vibe/Reactivities/client-app (main)
 $ npm install mobx mobx-react-lite
 
+BUILD FOR PROD - CLIENT APP
+Info:    client-app/package.json scripts section (postbuild moves client app to api folder in wwwroot)
+Command: npm run build
+
+DOCKER / POSTGRES
+docker run --name dev-postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres:latest
+****
 ------------------------------------------------------------------------------------------------------------------------------------
 #### MOBEX NOTES ####
 ------------------------------------------------------------------------------------------------------------------------------------

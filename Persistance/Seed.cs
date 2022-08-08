@@ -44,9 +44,9 @@ namespace Persistence
                         Title = "Past Activity 1",
                         Date = DateTime.Now.AddMonths(-2),
                         Description = "Activity 2 months ago",
-                        Category = "drinks",
+                        Category = "cs",
                         City = "London",
-                        Venue = "Pub",
+                        Venue = "Cambridge University",
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -127,9 +127,9 @@ namespace Persistence
                         Title = "Future Activity 3",
                         Date = DateTime.Now.AddMonths(3),
                         Description = "Activity 3 months in future",
-                        Category = "drinks",
-                        City = "London",
-                        Venue = "Pub",
+                        Category = "math",
+                        City = "Veliko Tarnovo",
+                        Venue = "Veliko Tarnovo University",
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -166,7 +166,7 @@ namespace Persistence
                         Title = "Future Activity 5",
                         Date = DateTime.Now.AddMonths(5),
                         Description = "Activity 5 months in future",
-                        Category = "drinks",
+                        Category = "cs",
                         City = "London",
                         Venue = "Punch and Judy",
                         Attendees = new List<ActivityAttendee>
@@ -232,9 +232,9 @@ namespace Persistence
                         Title = "Future Activity 8",
                         Date = DateTime.Now.AddMonths(8),
                         Description = "Activity 8 months in future",
-                        Category = "drinks",
-                        City = "London",
-                        Venue = "Pub",
+                        Category = "ai",
+                        City = "Sofia",
+                        Venue = "Jhon Atanasov Hall",
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
