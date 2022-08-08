@@ -30,10 +30,10 @@ namespace Application.Followers
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var observer = await _context.Users.FirstOrDefaultAsync(x =>
-                    x.UserName == _userAccessor.GetUsername());
+                    x.UserName == _userAccessor.GetUsername(), cancellationToken);
 
                 var target = await _context.Users.FirstOrDefaultAsync(x =>
-                    x.UserName == request.TargetUsername);
+                    x.UserName == request.TargetUsername, cancellationToken);
 
                 if (target == null) return null;
 
@@ -54,7 +54,7 @@ namespace Application.Followers
                     _context.UserFollowings.Remove(following);
                 }
 
-                var success = await _context.SaveChangesAsync() > 0;
+                var success = await _context.SaveChangesAsync(cancellationToken) > 0;
 
                 if (success) return Result<Unit>.Success(Unit.Value);
 

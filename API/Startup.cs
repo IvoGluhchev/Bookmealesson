@@ -68,6 +68,10 @@ namespace API
 
             app.UseRouting();
 
+            // this middleware will look into the wwroot folder for anything that is called index.html
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseCors("CorsPolicy");
 
             // Ordering is crucial
@@ -79,6 +83,7 @@ namespace API
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

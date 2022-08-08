@@ -19,7 +19,7 @@ namespace API
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             // This is going to be disposed once the Main method finishes because of using keyword
             // we are going to save all our servicese here
             using var scope = host.Services.CreateScope();
