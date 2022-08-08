@@ -19,19 +19,37 @@ PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet tool update -g dotnet-ef
 Tool 'dotnet-ef' was successfully updated from version '6.0.2' to version '6.0.7'.
 PS C:\Users\user\Desktop\Vibe\Reactivities>
 ----------------------------------------------------
-
-MOBX - same function as Redux
-// we install mobex and at the same time mobx mobx-react-lite
-user@DESKTOP-4QFH7NM MINGW64 ~/Desktop/Vibe/Reactivities/client-app (main)
-$ npm install mobx mobx-react-lite
-
 BUILD FOR PROD - CLIENT APP
 Info:    client-app/package.json scripts section (postbuild moves client app to api folder in wwwroot)
 Command: npm run build
 
 DOCKER / POSTGRES
 docker run --name dev-postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres:latest
-****
+
+HEROKU
+buildpack command to exectue in the terminal in Reactivities folder
+            - buildpack address: https://github.com/jincod/dotnetcore-buildpack
+            - command: heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
+git commands:
+            - first commit all changes
+            - second push (that will deply the app) - git push heroku main
+
+logs in heroku
+            - go to the app -> settings -> to the left click More -> View Logs
+            - or go to: https://dashboard.heroku.com/apps/bookmealesson/logs
+------------------------------------------------------------------------------------------------------------------------------------
+HEADERS SECURITY
+------------------------------------------------------------------------------------------------------------------------------------
+Nuget     - nwebsec.aspnetcore
+check url - https://securityheaders.com/
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+MOBX - same function as Redux
+// we install mobex and at the same time mobx mobx-react-lite
+user@DESKTOP-4QFH7NM MINGW64 ~/Desktop/Vibe/Reactivities/client-app (main)
+$ npm install mobx mobx-react-lite
+
 ------------------------------------------------------------------------------------------------------------------------------------
 #### MOBEX NOTES ####
 ------------------------------------------------------------------------------------------------------------------------------------
