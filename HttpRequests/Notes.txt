@@ -86,6 +86,9 @@ react-dropzone  - install in clinet-app cmd = npm install --save react-dropzone
 react-cropper   - install in client-app - cmd npm install --save react-cropper
                 - has a typescript definition file no need to install open
 SignalR         - cd to C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm install @microsoft/signalr
+react scroller  - react infinite scroller
+                - install - npm install react-infinite-scroller
+                -ts types - npm install @types/react-infinite-scroller
 
 
 ------------------------------------------------------------------------------------------------------------------------------------
