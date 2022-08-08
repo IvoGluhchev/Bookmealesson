@@ -114,6 +114,23 @@ export default class ProfileStore {
         }
     }
 
+    updateProfile = async (profile: Partial<Profile>) => {
+        this.loading = true;
+        try {
+            await agent.Profiles.updateProfile(profile);
+            runInAction(() => {
+                if (profile.displayName && profile.displayName !== store.userStore.user?.displayName) {
+                    store.userStore.setDisplayName(profile.displayName);
+                }
+                this.profile = {...this.profile, ...profile as Profile};
+                this.loading = false;
+            })
+        } catch (error) {
+            console.log(error);
+            runInAction(() => this.loading = false);
+        }
+    }
+
     // It's not the current following but what it will be once we click the button
     updateFollowing = async (username: string, following: boolean) => {
         this.loading = true;
@@ -156,19 +173,19 @@ export default class ProfileStore {
         }
     }
 
-    // loadUserActivities = async (username: string, predicate?: string) => {
-    //     this.loadingActivities = true;
-    //     try {
-    //         const activities = await agent.Profiles.listActivities(username, predicate!);
-    //         runInAction(() => {
-    //             this.userActivities = activities;
-    //             this.loadingActivities = false;
-    //         })
-    //     } catch (error) {
-    //         console.log(error);
-    //         runInAction(() => {
-    //             this.loadingActivities = false;
-    //         })
-    //     }
-    // }
+    loadUserActivities = async (username: string, predicate?: string) => {
+        this.loadingActivities = true;
+        try {
+            const activities = await agent.Profiles.listActivities(username, predicate!);
+            runInAction(() => {
+                this.userActivities = activities;
+                this.loadingActivities = false;
+            })
+        } catch (error) {
+            console.log(error);
+            runInAction(() => {
+                this.loadingActivities = false;
+            })
+        }
+    }
 }
