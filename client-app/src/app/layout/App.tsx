@@ -36,23 +36,21 @@ function App() {
     <Fragment>
       <ToastContainer position='bottom-right' hideProgressBar />
       <ModalContainer/>
-      <Route exact path='/' component={HomePage} />{/*we specify exact because other wise the homepage route will match any route */}
+      <Route exact path='/' component={HomePage} />
       <Route
         path={'/(.+)'}
         render={() => (
           <>
             <NavBar />
             <Container style={{ marginTop: '7em' }}>
-              {/* The Switch makes each route explicit and only one route could be show at a time. If we remove it the NotFound route will appear everywhere */}
               <Switch>
-                <PrivateRoute exact path='/activities' component={ActivityDashboard} />{/*blue we have the observer - jsx component able to observe */}
-                <PrivateRoute path='/activities/:id' component={ActivityDetails} /> {/*the yellow are react components and return jsx component*/}
+                <PrivateRoute exact path='/activities' component={ActivityDashboard} />
+                <PrivateRoute path='/activities/:id' component={ActivityDetails} />
                 <PrivateRoute key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
                 <PrivateRoute path='/profiles/:username' component={ProfilePage} />
                 <PrivateRoute path='/errors' component={TestErrors} />
-                <Route path='/server-error' component={ServerError} /> {/*history is not enabled*/}
-                {/* <Route path='/login' component={LoginForm} /> */}
-                <Route component={NotFound} /> {/*If no mathch is found show this*/}
+                <Route path='/server-error' component={ServerError} />
+                <Route component={NotFound} />
               </Switch>
             </Container>
           </>
@@ -61,10 +59,5 @@ function App() {
     </Fragment>
   );
 }
-// activities/:id the :id will act as a placeholder for the actual activity id wehn we navigate to this route
 
-// We are making our App observable by passing it to the higher level function observe
-// higher level means that a func accepts as param another func
-//<Route key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
-// our App is actually App function
 export default observer(App);

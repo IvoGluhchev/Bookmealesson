@@ -31,17 +31,3 @@ export default observer(function NavBar() {
         </Menu>
     )
 })
-
-/*
-Now
-<Menu.Item>
-    <Button as={NavLink} to='/createActivity' positive content="Create Activity" />
-</Menu.Item>
-NavLink -> comes from ReactRouter
-
-Before
-<Menu.Item>
-    <Button onClick={() => activityStore.openForm()} positive content="Create Activity" />
-</Menu.Item>
-
-*/

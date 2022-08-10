@@ -5,9 +5,8 @@ import { Button, Header, Label } from 'semantic-ui-react';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import { useStore } from '../../app/stores/store';
 
-// When we are adding store it's good to make the class o
+// When we are adding store it's good to make the class observer
 export default observer(function LoginForm() {
-    // passing the Store to the LoginForm
     const { userStore } = useStore();
     return (
         <Formik
@@ -17,7 +16,7 @@ export default observer(function LoginForm() {
         >
             {({handleSubmit, isSubmitting, errors}) => (
                 <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                    <Header as='h2' content='Login to Reactivites' color='teal' textAlign='center' />
+                    <Header as='h2' content='Login to Book me a lesson' color='teal' textAlign='center' />
                     <MyTextInput name='email' placeholder='Email' />
                     <MyTextInput name='password' placeholder='Password' type='password' />
                     <ErrorMessage
