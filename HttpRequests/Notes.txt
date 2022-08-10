@@ -6,6 +6,9 @@ START THE FRONTEND
 PS C:\Users\user\Desktop\Vibe\Reactivities> cd client-app
 PS C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm start
 
+START THE DB
+Start the docker container that holds the Postgres db
+
 MIGRATIONS
 PS C:\Users\user\Desktop\Vibe\Reactivities> dotnet ef migrations add IdentityAdded -p Persistance/ -s API
 This will create a migration called "IdentityAdded" within (-p) Persistance proj w/ (-s) starter proj API
