@@ -8,6 +8,10 @@
 4. From the dropdown select the profile to attach to a process
 5. In the search bar I should look for something like API.exe and select it, because the windows processes run in executables.
 
+*** Build the client App ***
+C:\Users\user\Desktop\Vibe\Reactivities\client-app> npm run build
+the steps for the build are in package.json file
+
 *** Docker ***
 # Docker build
 build the image - docker build -t ivogluhchev/bookmealesson:latest .
@@ -21,4 +25,7 @@ The cloud hosting of the application
 monitoring -  https://fly.io/apps/trainwithme/monitoring
 url - https://trainwithme.fly.dev/activities
 # Commands
-deploy - fly deploy
+deploy                      - fly deploy
+check logs                  - fly logs
+check logs for specific app - fly logs -a trainwithme
+get token for yml action    - flyctl auth token
