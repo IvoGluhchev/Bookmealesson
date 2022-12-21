@@ -1,8 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+// import { toNamespacedPath } from "path";
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { Activity, ActivityFormValues } from '../models/activity';
 import { PaginatedResult } from "../models/pagination";
+//import { PaginatedResult } from '../models/pagination';
 import { Photo, Profile, UserActivity } from '../models/profile';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../stores/store';
