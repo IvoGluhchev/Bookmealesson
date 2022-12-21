@@ -17,6 +17,8 @@ import LoadingComponent from './LoadingComponenet';
 import ModalContainer from '../common/modals/ModalContainer';
 import ProfilePage from '../../features/profiles/ProfilePage';
 import PrivateRoute from './PrivateRoute';
+import MainTestPage from '../../features/flights/MainTestPage';
+import CreateTest from '../../features/flights/CreateTest';
 
 function App() {
   const location = useLocation(); // useLocation is a hook from react-router-dom
@@ -48,6 +50,8 @@ function App() {
                 <PrivateRoute path='/activities/:id' component={ActivityDetails} />
                 <PrivateRoute key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
                 <PrivateRoute path='/profiles/:username' component={ProfilePage} />
+                <PrivateRoute path='/tests' component={MainTestPage} />
+                <PrivateRoute path='/createTest' component={CreateTest} />
                 <PrivateRoute path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />

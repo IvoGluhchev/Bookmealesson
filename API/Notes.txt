@@ -8,3 +8,17 @@
 4. From the dropdown select the profile to attach to a process
 5. In the search bar I should look for something like API.exe and select it, because the windows processes run in executables.
 
+*** Docker ***
+# Docker build
+build the image - docker build -t ivogluhchev/bookmealesson:latest .
+ivogluhchev - my name in docker hub the other part is the name of the image
+
+# Docker push to Docker hub
+push image - docker push ivogluhchev/bookmealesson:latest
+
+*** Fly.io ***
+The cloud hosting of the application
+monitoring -  https://fly.io/apps/trainwithme/monitoring
+url - https://trainwithme.fly.dev/activities
+# Commands
+deploy - fly deploy

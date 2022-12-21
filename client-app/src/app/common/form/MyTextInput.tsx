@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import React from "react";
-import { Button, FormField, Form, Label, Segment } from "semantic-ui-react";
+import { Button, FormField, Form, Label, Segment, Checkbox } from "semantic-ui-react";
 
 interface Props {
     placeholder: string;
