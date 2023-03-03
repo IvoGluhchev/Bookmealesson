@@ -75,7 +75,7 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
                         </Button>
                     </>
                 ) : activity.isGoing ? (
-                    <Button loading={loading} onClick={updateAttendance}>Cancel attendance</Button>
+                    <Button loading={loading} onClick={updateAttendance} basic color='red'>Cancel attendance</Button>
                 ) : (
                     <Button loading={loading} onClick={updateAttendance} color='teal'
                         disabled={activity.isCancelled || (!activity.unlimetedSeating && activity.seats === 0)}>
