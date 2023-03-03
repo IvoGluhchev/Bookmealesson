@@ -47,6 +47,8 @@ namespace Persistence
                         Category = "cs",
                         City = "London",
                         Venue = "Cambridge University",
+                        Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -64,6 +66,8 @@ namespace Persistence
                         Category = "culture",
                         City = "Paris",
                         Venue = "The Louvre",
+                        Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -86,6 +90,7 @@ namespace Persistence
                         Category = "music",
                         City = "London",
                         Venue = "Wembly Stadium",
+                        UnlimetedSeating = true,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -108,6 +113,8 @@ namespace Persistence
                         Category = "food",
                         City = "London",
                         Venue = "Jamies Italian",
+                         Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -130,6 +137,8 @@ namespace Persistence
                         Category = "math",
                         City = "Veliko Tarnovo",
                         Venue = "Veliko Tarnovo University",
+                         Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -152,6 +161,8 @@ namespace Persistence
                         Category = "culture",
                         City = "London",
                         Venue = "British Museum",
+                        Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -169,6 +180,8 @@ namespace Persistence
                         Category = "cs",
                         City = "London",
                         Venue = "Punch and Judy",
+                        Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -191,6 +204,8 @@ namespace Persistence
                         Category = "music",
                         City = "London",
                         Venue = "O2 Arena",
+                        Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -213,6 +228,7 @@ namespace Persistence
                         Category = "travel",
                         City = "Berlin",
                         Venue = "All",
+                        UnlimetedSeating = true,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee
@@ -235,6 +251,8 @@ namespace Persistence
                         Category = "ai",
                         City = "Sofia",
                         Venue = "Jhon Atanasov Hall",
+                        Seats = 20,
+                        UnlimetedSeating = false,
                         Attendees = new List<ActivityAttendee>
                         {
                             new ActivityAttendee

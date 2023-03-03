@@ -69,6 +69,7 @@ export default observer(function ActivityForm() {
                         <MyTextInput name='title' placeholder='Title' />
                         <MyTextArea rows={3} placeholder='Description' name='description' />
                         <MySelectInput options={categoryOptions} placeholder='Category'  name='category' />
+                        <MyTextInput name='seats' placeholder='Number of seats. Leave empty if unlimited' type="number"  />
                         <MyDateInput
                             placeholderText='Date'
                             name='date'

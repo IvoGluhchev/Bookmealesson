@@ -8,6 +8,8 @@ export interface Activity {
   category: string;
   city: string;
   venue: string;
+  seats: number;
+  unlimetedSeating: boolean;
   hostUsername: string;
   isCancelled: boolean;
   isGoing: boolean;
@@ -30,6 +32,8 @@ export class ActivityFormValues {
   date: Date | null = null;
   city: string = '';
   venue: string = '';
+  seats?: number = undefined;
+  unlimetedSeating: boolean = false;
 
   constructor(activity?: ActivityFormValues) {
     if (activity) {
@@ -40,6 +44,8 @@ export class ActivityFormValues {
       this.date = activity.date;
       this.city = activity.city;
       this.venue = activity.venue;
+      this.seats = activity.seats;
+      this.unlimetedSeating = activity.unlimetedSeating;
     }
   }
 }

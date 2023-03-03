@@ -161,6 +161,9 @@ export default class ActivityStore {
         const user = store.userStore.user;
         const attendee = new Profile(user!);
         try {
+
+            activity.unlimetedSeating = activity.seats === undefined || activity.seats <= 0;
+
             await agent.Activities.create(activity);
 
             const newActivity = new Activity(activity);
@@ -220,10 +223,16 @@ export default class ActivityStore {
                 if (this.selectedActivity?.isGoing) {
                     this.selectedActivity.attendees = this.selectedActivity.attendees?.filter(a => a.username !== user?.username);
                     this.selectedActivity.isGoing = false;
+                    if(!this.selectedActivity?.unlimetedSeating){
+                        ++this.selectedActivity!.seats!;
+                    }
                 } else {
                     const attendee = new Profile(user!);
                     this.selectedActivity?.attendees?.push(attendee);
                     this.selectedActivity!.isGoing = true;
+                    if(!this.selectedActivity?.unlimetedSeating){
+                        --this.selectedActivity!.seats!;
+                    }
                 }
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
             });

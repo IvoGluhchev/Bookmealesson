@@ -19,6 +19,10 @@ import ProfilePage from '../../features/profiles/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 import MainTestPage from '../../features/flights/MainTestPage';
 import CreateTest from '../../features/flights/CreateTest';
+import CreateUser from '../../features/flights/CreateUser';
+import ListUsers from '../../features/flights/users/ListUsers';
+import AssignTest from '../../features/flights/tests/AssignTest';
+import SampleTest from '../../features/flights/tests/SampleTest';
 
 function App() {
   const location = useLocation(); // useLocation is a hook from react-router-dom
@@ -50,8 +54,14 @@ function App() {
                 <PrivateRoute path='/activities/:id' component={ActivityDetails} />
                 <PrivateRoute key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
                 <PrivateRoute path='/profiles/:username' component={ProfilePage} />
+
                 <PrivateRoute path='/tests' component={MainTestPage} />
                 <PrivateRoute path='/createTest' component={CreateTest} />
+                <PrivateRoute path='/createUser' component={CreateUser} />
+                <PrivateRoute path='/listUsers' component={ListUsers} />
+                <PrivateRoute path='/assignTest' component={AssignTest} />
+                <PrivateRoute path='/sampleTest' component={SampleTest} />
+
                 <PrivateRoute path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />

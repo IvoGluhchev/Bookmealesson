@@ -4,7 +4,7 @@ namespace Application.Activities
 {
     public class ActivityDto
     {
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
@@ -12,7 +12,9 @@ namespace Application.Activities
         public string City { get; set; }
         public string Venue { get; set; }
         public string HostUsername { get; set; }
-       public bool IsCancelled { get; set; }
+        public bool IsCancelled { get; set; }
+        public int Seats { get; set; }
+        public bool UnlimetedSeating { get; set; }
         public ICollection<AtendeeDto> Attendees { get; set; }
     }
 }

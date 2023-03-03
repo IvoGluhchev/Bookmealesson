@@ -22,3 +22,10 @@ monitoring -  https://fly.io/apps/trainwithme/monitoring
 url - https://trainwithme.fly.dev/activities
 # Commands
 deploy - fly deploy
+
+# Exploring the DB
+check the name of the db - fly apps list
+create a proxy           - fly proxy 6543:5432 -a trainwithme-db
+5432 must be this as it is postgres in fly.io (have it in the saved info) the other port doesn't matter what we choose but will use it
+Open Postgres explorer click the plus sign and add the required data we can retrieve the usr and pass since
+for fly.io postgres as I have saved them

@@ -50,6 +50,7 @@ namespace Application.Activities
                 };
 
                 request.Activity.Attendees.Add(attenddee);
+                request.Activity.UnlimetedSeating = request.Activity.Seats <= 0;
 
                 // The AddAsync is async when used only for db operations
                 // Here we add the Activity in-memory of EF

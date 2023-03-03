@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Core;
 using Application.Interfaces;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
@@ -56,6 +57,7 @@ namespace Application.Activities
                 if (attendance != null && hostUsrname != user.UserName)
                 {
                     activity.Attendees.Remove(attendance);
+                    HandleSeats(activity, isAttendance: false);
                 }
                 if (attendance == null)
                 {
@@ -66,11 +68,28 @@ namespace Application.Activities
                         IsHost = false
                     };
                     activity.Attendees.Add(attendance);
+                    HandleSeats(activity, isAttendance: true);
                 }
 
                 var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
                 return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed updateing attendance");
+            }
+
+            private static void HandleSeats(Activity activity, bool isAttendance)
+            {
+                if(activity.UnlimetedSeating)
+                {
+                    return;
+                }
+                if(isAttendance)
+                {
+                    --activity.Seats;
+                }
+                else
+                {
+                    ++activity.Seats;
+                }
             }
         }
     }

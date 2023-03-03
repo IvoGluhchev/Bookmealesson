@@ -29,6 +29,10 @@ Command: npm run build
 DOCKER / POSTGRES
 docker run --name dev-postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres:latest
 
+When Exceptions on start
+local POSTGRES - "DefaultConnection": "Server=localhost; Port=5432; User Id=admin; Password=secret; Database=reactivities"
+dock  POSTGRES - "DefaultConnection": "Server=host.docker.internal; Port=5432; User Id=admin; Password=secret; Database=reactivities"
+
 HEROKU
 buildpack command to exectue in the terminal in Reactivities folder
             - buildpack address: https://github.com/jincod/dotnetcore-buildpack

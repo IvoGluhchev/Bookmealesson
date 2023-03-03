@@ -31,20 +31,20 @@ export default function MainTestPage() {
                         <Button as={Link} to='/createTest' fluid color='teal'>Създай Тест</Button>
                     </Grid.Column>
                     <Grid.Column>
-                        <Button fluid color='teal'>Назначи Тест</Button>
+                        <Button as={Link} to='/assignTest' fluid color='teal'>Назначи Тест</Button>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column>
-                        <Button fluid color='teal'>Създай Потребител</Button>
+                        <Button as={Link} to='/createUser' fluid color='teal'>Създай Потребител</Button>
                     </Grid.Column>
                     <Grid.Column>
-                        <Button fluid color='teal'>Потребители</Button>
+                        <Button as={Link} to='/listUsers' fluid color='teal'>Потребители</Button>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column>
-                        <Button fluid color='teal'>Статистика</Button>
+                        <Button as={Link} to='/sampleTest' fluid color='teal'>Примерен Тест</Button>
                     </Grid.Column>
                     <Grid.Column>
                         <Button fluid color='teal'>Методики</Button>
